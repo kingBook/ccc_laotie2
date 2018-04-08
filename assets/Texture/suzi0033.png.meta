@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "2dce748f-89b2-41cc-9a4e-7630a891ae6d",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "suzi0033": {
+      "ver": "1.0.3",
+      "uuid": "f34aff22-611a-4c09-ada5-ada393c1194f",
+      "rawTextureUuid": "2dce748f-89b2-41cc-9a4e-7630a891ae6d",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0.5,
+      "offsetY": 0,
+      "trimX": 8,
+      "trimY": 5,
+      "width": 50,
+      "height": 53,
+      "rawWidth": 65,
+      "rawHeight": 63,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

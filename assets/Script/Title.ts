@@ -12,7 +12,6 @@ export default class Title extends cc.Component {
     private myGame:MyGame=null;
     
     public start():void{
-        cc.log("start");
        this.startNode.on(cc.Node.EventType.TOUCH_END,this.onTouchEnd,this);
        this.shareNode.on(cc.Node.EventType.TOUCH_END,this.onTouchEnd,this);
     }
@@ -25,10 +24,6 @@ export default class Title extends cc.Component {
         }else if(targetName=="share"){
             
         }
-    }
-
-    public onDisable():void{
-        cc.log("onDisable Title");
     }
     
     public onDestroy():void{
