@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "0a2c04b9-c386-4004-acc0-b0023f7482ef",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "lv5btn": {
+      "ver": "1.0.3",
+      "uuid": "852b6a12-5aeb-4e9e-8ee9-639c8b09ceb6",
+      "rawTextureUuid": "0a2c04b9-c386-4004-acc0-b0023f7482ef",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 120,
+      "height": 103,
+      "rawWidth": 120,
+      "rawHeight": 103,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
