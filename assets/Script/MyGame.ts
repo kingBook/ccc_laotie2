@@ -8,6 +8,12 @@ export default class MyGame extends cc.Component {
     private selectLevelNode:cc.Node=null;
     @property([cc.Node])
     private levelIntroList:cc.Node[]=[];
+    @property(cc.Node)
+    private winUINode:cc.Node=null;
+    @property(cc.Node)
+    private failureUINode:cc.Node=null;
+    
+    private _level:number=1;
     
     public start():void{
         this.gotoTitle();
@@ -22,6 +28,17 @@ export default class MyGame extends cc.Component {
     }
     
     public gotoLevel(level:number):void{
+        this._level=level;
         this.levelIntroList[level-1].active=true;
     }
+    
+    public win():void{
+        this.winUINode.active=true;
+    }
+    
+    public failure():void{
+        this.failureUINode.active=true;
+    }
+    
+    public get level():number{return this._level;}
 }

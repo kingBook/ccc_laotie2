@@ -1,14 +1,14 @@
 {
   "ver": "1.0.0",
-  "uuid": "510ed1e9-4361-47d9-9f15-c05905175dba",
+  "uuid": "30170c57-e795-468e-acd2-c6ddcf6f7ceb",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "subMetas": {
-    "fanhuibtn": {
+    "againbtn": {
       "ver": "1.0.3",
-      "uuid": "faa771f0-ee32-4dfe-8b80-0fd407c60c9a",
-      "rawTextureUuid": "510ed1e9-4361-47d9-9f15-c05905175dba",
+      "uuid": "d178638f-1a55-46df-b19a-02f440a1c727",
+      "rawTextureUuid": "30170c57-e795-468e-acd2-c6ddcf6f7ceb",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

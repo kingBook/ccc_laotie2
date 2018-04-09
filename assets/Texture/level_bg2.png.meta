@@ -1,14 +1,14 @@
 {
   "ver": "1.0.0",
-  "uuid": "510ed1e9-4361-47d9-9f15-c05905175dba",
+  "uuid": "fd34745d-0c6c-4fdc-808c-b5f16ddf9750",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "subMetas": {
-    "fanhuibtn": {
+    "level_bg2": {
       "ver": "1.0.3",
-      "uuid": "faa771f0-ee32-4dfe-8b80-0fd407c60c9a",
-      "rawTextureUuid": "510ed1e9-4361-47d9-9f15-c05905175dba",
+      "uuid": "b110afb4-a13f-4779-9b53-1d52f5891ce6",
+      "rawTextureUuid": "fd34745d-0c6c-4fdc-808c-b5f16ddf9750",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -16,10 +16,10 @@
       "offsetY": 0,
       "trimX": 0,
       "trimY": 0,
-      "width": 277,
-      "height": 98,
-      "rawWidth": 277,
-      "rawHeight": 98,
+      "width": 640,
+      "height": 960,
+      "rawWidth": 640,
+      "rawHeight": 960,
       "borderTop": 0,
       "borderBottom": 0,
       "borderLeft": 0,
