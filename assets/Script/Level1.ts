@@ -10,14 +10,6 @@ export default class Level1 extends LevelBase {
     @property(cc.Prefab)
     private circlePrefab:cc.Prefab=null;
     @property(cc.Node)
-    private contentNode:cc.Node=null;
-    @property(cc.Prefab)
-    private answerPrefab:cc.Prefab=null;
-    @property(MyGame)
-    private myGame:MyGame=null;
-    @property(cc.Prefab)
-    private countDownPrefab:cc.Prefab=null;
-    @property(cc.Node)
     private obsMaskNode:cc.Node=null;
     
     private _cfgList:number[][]=[
@@ -39,15 +31,8 @@ export default class Level1 extends LevelBase {
     private _botY:number=-180;
     private _botY2:number=-350;
     private _cutCircleNode:cc.Node;
-    private _answerNode:cc.Node;
     private _startWaitMoveTime:number=2;//开始时准备进入漏斗等待的时间<秒>
-    private _countDownNode:cc.Node=null;
     private _timeOutId:number=-1;
-    
-    public start():void{
-        super.start();
-        
-    }
     
     public onEnable():void{
         this._lifeId=0;
@@ -55,29 +40,19 @@ export default class Level1 extends LevelBase {
         this._listSource=[];
         this._listMatch=[];
         this.obsMaskNode.active=false;
-        
-        this.startTimer(3,this.onCountDown,0.9);
+        super.onEnable();
     }
     
-    private onCountDown(secCount:number):void{
-        if(secCount<=0){
-            this._countDownNode.active=false;
-            this.obsMaskNode.active=true;
-            this.createSourceCircles();
-            this._timeOutId=setTimeout(() => {
-                this.onInitWaitComplete();
-            }, this._startWaitMoveTime*1000);
-        }else{
-            if(this._countDownNode==null){
-                this._countDownNode=cc.instantiate(this.countDownPrefab);
-                this._countDownNode.setPosition(0,0);
-                this._countDownNode.parent=this.node;
-                let widget=this._countDownNode.addComponent(cc.Widget);
-                widget.target=this.node;
-            }
-            this._countDownNode.active=true;
-            this._countDownNode.getComponent(CountDown).setTexture(secCount);
-        }
+    public start():void{
+        super.start();
+    }
+    
+    protected onCountDownFinish():void{
+        this.obsMaskNode.active=true;
+        this.createSourceCircles();
+        this._timeOutId=setTimeout(() => {
+            this.onInitWaitComplete();
+        }, this._startWaitMoveTime*1000);
     }
     
     private onInitWaitComplete():void{
@@ -119,32 +94,24 @@ export default class Level1 extends LevelBase {
     
     private onTouchEnd(e:cc.Event.EventTouch):void{
         let isPass=e.target==this._cutCircleNode;
-        this.end(isPass);
+        this.onPreEnd(isPass);
     }
     
-    /**阶段性结束*/
-    private end(isPass:boolean):void{
-        this._answerNode=cc.instantiate(this.answerPrefab);
-        this._answerNode.getComponent(Answer).setTexture(isPass);
-        this._answerNode.setPosition(0,0);
-        this._answerNode.parent=this.node;
-        let widget=this._answerNode.addComponent(cc.Widget);
-        widget.target=this.node;
-        
-        this.scheduleOnce(()=>{
-            if(isPass){
-                if(this._lifeId>=this._cfgList.length-1 && this._idCount>=this._cfgList[this._cfgList.length-1][1]){
-                    this.node.active=false;
-                    this.myGame.win();
-                }else{
-                    this.nextHandler();//重建
-                }
-            }else{
+    protected onPostEnd(isPass:boolean):void{
+        super.onPostEnd();
+        if(isPass){
+            if(this._lifeId>=this._cfgList.length-1 && this._idCount>=this._cfgList[this._cfgList.length-1][1]){
                 this.node.active=false;
-                this.myGame.failure();//失败
+                this.myGame.win();
+            }else{
+                this.nextHandler();//重建
             }
-        },1);
+        }else{
+            this.node.active=false;
+            this.myGame.failure();//失败
+        }
     }
+    
     private nextHandler():void{
         this.destroyMySelf();
         this.createSourceCircles();
@@ -191,6 +158,11 @@ export default class Level1 extends LevelBase {
             let widget=circle.addComponent(cc.Widget);
             widget.target=this.contentNode;
         }
+        //打乱供选择的圆
+        this._listMatch.sort((a:cc.Node,b:cc.Node)=>{
+            return Math.random()-0.5;
+        });
+        //
         this.sortPosWithList(this._listMatch,this._xmin,this._xmax,this._botY2);
     }
     
@@ -204,7 +176,7 @@ export default class Level1 extends LevelBase {
         }
     }
     
-    private destroyMySelf():void{
+    protected destroyMySelf():void{
         for(let i=0;i<this._listMatch.length;i++){
             this._listMatch[i].off(cc.Node.EventType.TOUCH_END,this.onTouchEnd,this);
             this._listMatch[i].destroy();
@@ -215,25 +187,16 @@ export default class Level1 extends LevelBase {
             this._listSource[i].destroy();
         }
          this._listSource=[];
-         
-        if(this._answerNode){
-            this._answerNode.destroy();
-            this._answerNode=null;
-        }
-        if(this._countDownNode){
-            this._countDownNode.destroy();
-            this._countDownNode=null;
-        }
         if(this._timeOutId>-1)clearTimeout(this._timeOutId);
+        super.destroyMySelf();
     }
     
     public onDisable():void{
-        this.destroyMySelf();
         super.onDisable();
     }
     
     public onDestroy():void{
-        this.destroyMySelf();
+        super.onDestroy();
     }
     
 }
