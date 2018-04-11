@@ -14,6 +14,7 @@ export default class MyGame extends cc.Component {
     private failureUINode:cc.Node=null;
     
     private _level:number=1;
+    private _score:number;
     
     public start():void{
         this.gotoTitle();
@@ -28,6 +29,7 @@ export default class MyGame extends cc.Component {
     }
     
     public gotoLevel(level:number):void{
+        this._score=0;
         this._level=level;
         this.levelIntroList[level-1].active=true;
     }

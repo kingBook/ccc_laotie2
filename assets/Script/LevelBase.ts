@@ -52,6 +52,45 @@ export default class LevelBase extends cc.Component {
         
     }
     
+    /*protected getGoodRandomPos(node:cc.Node,bounds:cc.Rect,list:cc.Node[]):cc.Vec2{
+        let initpos=node.getPosition();
+        this.setNodeToGoodRandomPos(node,bounds,list);
+        
+    }*/
+    
+    protected setNodeToGoodRandomPos(node:cc.Node,bounds:cc.Rect,list:cc.Node[]):void{
+        this.setNodeToRandomPos(node,bounds);
+        
+        let count=0;
+        while(this.checkNodeHitOther(node,list)){
+            this.setNodeToRandomPos(node,bounds);
+            count++;
+            if(count>1e5){
+                break;//防止死循环
+            }
+        }
+    }
+    protected setNodeToRandomPos(node:cc.Node,bounds:cc.Rect):void{
+        let x=bounds.xMin+Math.random()*bounds.width;
+        let y=bounds.yMin+Math.random()*bounds.height;
+        x*=0.8;
+        y*=0.8;
+        node.setPosition(x,y);
+    }
+    protected checkNodeHitOther(node:cc.Node,list:cc.Node[]):boolean{
+        let result:boolean=false;
+        for(let i=0;i<list.length;i++){
+            if(list[i]==node)continue;
+            let bounds1=node.getBoundingBox();
+            let bounds2=list[i].getBoundingBox();
+            if(bounds1.intersects(bounds2)){
+                result=true;
+                break;
+            }
+        }
+        return result;
+    }
+    
     /**
      * 
      * @param secondCount 

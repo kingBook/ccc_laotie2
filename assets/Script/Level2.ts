@@ -4,12 +4,11 @@ import CircleT from "./CircleT";
 
 const {ccclass, property} = cc._decorator;
 
-
 export default interface ColorScaleData {
     colorIndex:number;
     scale:number;
 };
-
+/**堆叠圆盘 */
 @ccclass
 export default class Level2 extends LevelBase {
     @property(cc.Prefab)
@@ -81,7 +80,7 @@ export default class Level2 extends LevelBase {
         let matchNode=this.createOneCirclesNode(colorScaleList,this.contentNode,0,0,"matchNode");
         this._circlesNodeList.push(matchNode);
         //创建随机个数
-        let randomCount=((Math.random()*4)|0)+3;//3-6
+        let randomCount=((Math.random()*3)|0)+3;//3-5
         for(let i=0;i<randomCount;i++){
             let ranCirclesNode=this.createRandomCirclesNode(this.contentNode,0,0);
             this._circlesNodeList.push(ranCirclesNode);
@@ -91,13 +90,14 @@ export default class Level2 extends LevelBase {
         for(let i=0;i<this._circlesNodeList.length;i++){
             let nd=this._circlesNodeList[i];
             //打乱位置
-            let x=bounds.xMin+Math.random()*bounds.width;
-            let y=bounds.yMin+Math.random()*bounds.height;
-            nd.setPosition(x,y);
+            this.setNodeToGoodRandomPos(nd,bounds,this._circlesNodeList);
             //侦听触摸
             nd.on(cc.Node.EventType.TOUCH_END,this.onTouchEnd,this);
         }
     }
+    
+    
+    
     
     private onTouchEnd(e:cc.Event.EventTouch):void{
         let isPass=e.target.name=="matchNode";
@@ -164,14 +164,14 @@ export default class Level2 extends LevelBase {
             for(let i=0;i<this._blockFNodeList.length;i++){
                 this._blockFNodeList[i].destroy();
             }
-            this._blockFNodeList=null;
+            this._blockFNodeList=[];
         }
         if(this._circlesNodeList){
             for(let i=0;i<this._circlesNodeList.length;i++){
                 this._circlesNodeList[i].off(cc.Node.EventType.TOUCH_END,this.onTouchEnd,this);
                 this._circlesNodeList[i].destroy();
             }
-            this._circlesNodeList=null;
+            this._circlesNodeList=[];
         }
         super.destroyMySelf();
     }

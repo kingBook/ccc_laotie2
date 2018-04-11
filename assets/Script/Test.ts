@@ -1,19 +1,26 @@
 const {ccclass, property} = cc._decorator;
 
-export default interface MyData {
-    a:string;
-    b:string;
-};
 @ccclass
 export default class Test extends cc.Component {
+    private _count:number=2;
+    
+    private _obj={
+        onTimer:function(count:number):void{
+            cc.log("count:",count);
+            if(count==0){
+                cc.log("complete");
+            }
+        }
+    };
+    
 	public start():void{
-        this.node.on(cc.Node.EventType.TOUCH_END,this.onTouchEnd,this)
+        this.schedule(this.onTimer,1,this._count-1);
     }
     
-    private onTouchEnd(e:cc.Event.EventTouch):void{
-        let data:MyData=new MyData();
-        data.a="a";
-        data.b="b";
-        cc.log(data);
+    private onTimer():void{
+        this._count--;
+        this._obj.onTimer(this._count);
     }
+    
+    
 }
